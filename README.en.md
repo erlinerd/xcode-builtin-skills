@@ -60,8 +60,14 @@ Provenance of the groups:
 
 ## Fidelity to the official files
 
-Per-file sha256 against the files inside `Xcode.app`: **142 of 144 byte-identical**. The only two differences are the 4-line frontmatter (`name`/`description`) added to the two translation SKILL.md files to satisfy the skills CLI contract — bodies are unchanged.
+Per-file sha256 against the files inside `Xcode.app`: **all 141 sourced files match** (139 byte-identical + the 2 translation SKILL.md files differing only by frontmatter, bodies identical). The only two differences are the 4-line frontmatter (`name`/`description`) added to the two translation SKILL.md files to satisfy the skills CLI contract — bodies are unchanged.
 
 ## Updating
 
-After an Xcode upgrade, re-copy the files from the two framework paths above and replace the matching directories under `skill/`.
+After an Xcode upgrade, re-sync with:
+
+```bash
+scripts/sync-from-xcode.py            # defaults to /Applications/Xcode.app; pass a custom path to override
+```
+
+The script auto-detects added/removed skills and references, preserves the translation SKILL.md frontmatter, and prints a byte-level fidelity check at the end.

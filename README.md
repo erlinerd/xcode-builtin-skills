@@ -60,8 +60,14 @@ mcp/                        # Xcode MCP 配置 + 工具一览与激活规则（s
 
 ## 与官方文件的一致性
 
-逐文件 sha256 对比 `Xcode.app` 内源文件：**144 个文件中 142 个字节级一致**；唯二差异是两个翻译技能的 SKILL.md 增加了 4 行 frontmatter（`name`/`description`，为满足 skills CLI 契约），正文未改动。
+逐文件 sha256 对比 `Xcode.app` 内源文件：**141 个文件全部与源一致**（139 个字节级相同 + 2 个翻译 SKILL.md 仅 frontmatter 差异，正文相同）；唯二差异是两个翻译技能的 SKILL.md 增加了 4 行 frontmatter（`name`/`description`，为满足 skills CLI 契约），正文未改动。
 
 ## 更新
 
-Xcode 升级后重新同步：从上述两个 framework 路径复制新文件，替换对应技能目录内容即可。
+Xcode 升级后重新同步：
+
+```bash
+scripts/sync-from-xcode.py            # 默认 /Applications/Xcode.app，也可传自定义路径
+```
+
+脚本会自动发现新增/删除的技能与参考文件，保留翻译 SKILL.md 的 frontmatter，并在结束时输出与官方源的字节级校验结果。
